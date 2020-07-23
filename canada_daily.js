@@ -1,6 +1,6 @@
 const api_key = '61336cd6-47ff-4494-a02c-7fd5aa7c795e';
 
-const api_url = "http://api.coronatracker.com/v3/analytics/newcases/country?countryCode=CA&startDate=2020-01-01&endDate=2020-07-20";
+const api_url = "https://api.coronatracker.com/v3/analytics/newcases/country?countryCode=CA&startDate=2020-01-01&endDate=2020-07-20";
 
 let data = d3.json(api_url, function(error, d) { return d; });
 
