@@ -8,22 +8,23 @@ const api_url = "https://api.coronatracker.com/v3/analytics/newcases/country?cou
 let data = d3.json(api_url, function(error, d) { return d; });
 
 data.then(function(result) {
-  //console.log(result);
-
   var data = result;
 
   data.forEach(function(d){ 
     d.last_updated = d.last_updated.slice(0, 10);
     d.last_updated = d3.timeParse("%Y-%m-%d")(d.last_updated);
+    d.new_infections = +d.new_infections;
   });
 
-  // if (error) throw error;
+  //console.log(data);
 
   var svg = d3.select("svg"),
-      margin = {top: 20, right: 20, bottom: 30, left: 50},
+      margin = {top: 20, right: 200, bottom: 30, left: 50},
       width = +svg.attr("width") - margin.left - margin.right,
       height = +svg.attr("height") - margin.top - margin.bottom,
       g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var bisectDate = d3.bisector(function(d) { return d.last_updated; }).left;
 
   var x = d3.scaleTime()
       .rangeRound([0, width]);
@@ -68,4 +69,48 @@ data.then(function(result) {
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
       .attr("d", line);
+
+  
+  // Tooltip Code
+  var focus = g.append("g")
+        .attr("class", "focus")
+        .style("display", "none");
+
+    focus.append("line")
+        .attr("class", "x-hover-line hover-line")
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    focus.append("line")
+        .attr("class", "y-hover-line hover-line")
+        .attr("x1", width)
+        .attr("x2", width);
+
+    focus.append("circle")
+        .attr("r", 6);
+
+    focus.append("text")
+        .attr("x", 15)
+        .attr("dy", ".31em");
+
+    svg.append("rect")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", "overlay")
+        .attr("width", width)
+        .attr("height", height)
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove);
+
+    function mousemove() {
+      var x0 = x.invert(d3.mouse(this)[0]),
+          i = bisectDate(data, x0, 1),
+          d0 = data[i - 1],
+          d1 = data[i],
+          d = x0 - d0.last_updated > d1.last_updated - x0 ? d1 : d0;
+      focus.attr("transform", "translate(" + x(d.last_updated) + "," + y(d.new_infections) + ")");
+      focus.select("text").text(function() { return d.last_updated.toLocaleDateString('en-US') + ": " + d.new_infections; });
+      focus.select(".x-hover-line").attr("y2", height - y(d.new_infections));
+      focus.select(".y-hover-line").attr("x2", width + width);
+    }
 })

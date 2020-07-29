@@ -3,16 +3,53 @@
 <html lang="en">
 <head>
 	<title>Canada COVID Daily New Infections</title>
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,500,700" rel="stylesheet">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src="canada_daily.js" defer></script>
 	<style>
-		.rectangle:hover {
-			opacity: 0.66;
+		body {
+  			background-color: #F1F3F3;
+  			font-family: 'Fira Sans', sans-serif;
+		}
+  
+		text {
+  			font-family: 'Fira Sans', sans-serif;
+  			font-weight: 500;
+  			font-size: 15px;
+  			color: #081F2C;
+		}
+
+		.axis path,
+		.axis line {
+  			fill: none;
+  			stroke: #D4D8DA;
+  			stroke-width: 2px;
+  			shape-rendering: crispEdges;
+		}
+  
+		.axis-title{
+  			fill: #5B6770;
+  			letter-spacing: 1px;
+		}
+
+		.line {
+  			fill: none;
+  			stroke: #6F257F;
+  			stroke-width: 5px;
+		}
+
+		.overlay {
+  			fill: none;
+  			pointer-events: all;
+		}
+
+		.focus circle {
+  			fill: steelblue;
 		}
 	</style>
 </head>
 <body>
 	<h1>Canada COVID Daily New Infections</h1>
-	<svg width="1440" height="500"></svg>
+	<svg width="960" height="500"></svg>
 </body>
 </html>
