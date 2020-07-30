@@ -3,7 +3,8 @@ var date_today = today.getFullYear()+'-'+("0" + (today.getMonth()+1)).slice(-2)+
 
 //console.log(date_today);
 
-const api_url = "https://api.coronatracker.com/v3/analytics/newcases/country?countryCode=CA&startDate=2020-01-01&endDate=" + date_today;
+const api_url = 
+  "https://api.coronatracker.com/v3/analytics/newcases/country?countryCode=CA&startDate=2020-01-01&endDate=" + date_today;
 
 let data = d3.json(api_url, function(error, d) { return d; });
 
@@ -113,4 +114,54 @@ data.then(function(result) {
       focus.select(".x-hover-line").attr("y2", height - y(d.new_infections));
       focus.select(".y-hover-line").attr("x2", width + width);
     }
+
+    //Create annotations Code
+    const annotations = [
+      {
+        note: {
+          label: "First day with registered cases"
+        },
+        type: d3.annotationCalloutCircle,
+        subject: {
+          radius: 5,
+        },
+        x: 270 + 50,
+        y: 411 + 20,
+        dy: -30,
+        dx: 40
+      },
+      {
+        note: {
+          label: "Canada closes border"
+        },
+        type: d3.annotationCalloutCircle,
+        subject: {
+          radius: 5,
+        },
+        x: 256 + 50,
+        y: 450 + 20,
+        dy: -30,
+        dx: -30
+      },
+      {
+        note: {
+          label: "Canada reaches 100.000 COVID-19 cases"
+        },
+        type: d3.annotationCalloutCircle,
+        subject: {
+          radius: 5,
+        },
+        x: 708 + 50,
+        y: 387 + 20,
+        dy: -60,
+        dx: 0
+      }
+    ];
+
+     const makeAnnotations = d3.annotation()
+      .annotations(annotations);
+
+    d3.select("svg")
+      .append("g")
+      .call(makeAnnotations);
 })

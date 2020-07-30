@@ -5,12 +5,17 @@
 	<title>Canada COVID Daily New Infections</title>
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,500,700" rel="stylesheet">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.12.1/d3-annotation.min.js"></script>
 	<script src="canada_daily.js" defer></script>
 	<style>
 		body {
   			background-color: #F1F3F3;
   			font-family: 'Fira Sans', sans-serif;
 		}
+
+		:root {
+      		--accent-color: red;
+    	}
   
 		text {
   			font-family: 'Fira Sans', sans-serif;
@@ -46,10 +51,33 @@
 		.focus circle {
   			fill: steelblue;
 		}
+
+		.annotation-note-bg {
+      		fill: rgba(0, 0, 0, 0);
+    	}
+
+    	.annotation path {
+      		stroke: var(--accent-color);
+      		fill: none;
+    	}
+
+    	.annotation path.connector-arrow, 
+    	.annotation path.connector-dot, 
+    	.title text, .annotation text {
+      		fill: var(--accent-color);
+    	}
+
+    	.annotation-note-bg {
+      		fill: rgba(0, 0, 0, 0);
+    	}
+
+    	.annotation-note-title {
+      		font-weight: bold;
+    	}
 	</style>
 </head>
 <body>
 	<h1>Canada COVID Daily New Infections</h1>
-	<svg width="960" height="500"></svg>
+	<svg width="1160" height="500"></svg>
 </body>
 </html>
