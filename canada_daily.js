@@ -1,5 +1,5 @@
 var today = new Date();
-var date_today = today.getFullYear()+'-'+("0" + (today.getMonth()+1)).slice(-2)+'-'+today.getDate();
+var date_today = today.getFullYear()+'-'+("0" + (today.getMonth()+1)).slice(-2)+'-'+("0" + (today.getDate()+1)).slice(-2);
 
 //console.log(date_today);
 
@@ -10,6 +10,8 @@ let data = d3.json(api_url, function(error, d) { return d; });
 
 data.then(function(result) {
   var data = result;
+
+  //console.log(data);
 
   data.forEach(function(d){ 
     d.last_updated = d.last_updated.slice(0, 10);
