@@ -16,7 +16,7 @@ const x = d3.scaleBand()
   .padding(0.1);
 
 const y = d3.scaleLinear()
-  .domain([0, 500000])
+  .domain([0, 600000])
   .range([height - margin.bottom, margin.top]);
 
 let data = d3.json("https://covidtracking.com/api/v1/states/current.json", function(error, d) { return d; });
