@@ -44,7 +44,7 @@ data.then(function (result) {
 	}));
 
 	y.domain(d3.extent(data, function (d) {
-		return d.new_infections;
+		return d.new_infections * 1.1;
 	}));
 
 	g.append("g")
