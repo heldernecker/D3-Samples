@@ -1,5 +1,5 @@
 var today = new Date();
-var date_today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() + 1)).slice(-2);
+var date_today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate())).slice(-2);
 
 //console.log(date_today);
 
